@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>光景 — SCENES IN THE LIGHT</title>
+<meta name="description" content="光景：一个用 Godot 制作的小游戏。换一张背景，就是另一个世界。">
+<meta name="theme-color" content="#bdefff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23070a7d'/%3E%3Ccircle cx='16' cy='12' r='4' fill='%23fff100'/%3E%3Crect x='7' y='20' width='18' height='4' fill='%23bdefff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">跳到正文</a>
+
+<!-- ==========================================================
+     BACKGROUND
+     开屏时是清晰的整张图，进入后原地退成页面背景。
+     换图只改 assets/photos.js 里的第一张。
+=========================================================== -->
+<div class="bg" id="bg" aria-hidden="true">
+  <div class="bg__media" id="bgMedia"></div>
+  <div class="bg__veil"></div>
+  <div class="bg__grain"></div>
+</div>
+
+<!-- ==========================================================
+     OPENING
+     第一幕 loader → 第二幕 整张图 → 黑白 ENTER
+=========================================================== -->
+<div class="opening" id="opening" role="dialog" aria-modal="true" aria-label="オープニング" aria-hidden="true">
+
+  <div class="opening__loader" aria-hidden="true">
+    <span class="band band--1"></span>
+    <span class="band band--2"></span>
+    <span class="band band--3"></span>
+    <span class="loader__word">SCENE</span>
+    <span class="loader__sub">NOW LOADING</span>
+  </div>
+
+  <div class="opening__scene">
+    <div class="opening__scrim" aria-hidden="true"></div>
+
+    <div class="shot__ui">
+      <p class="shot__no">SCENE 01 <span>/</span> BACKGROUND</p>
+      <p class="shot__jp">光のなかへ</p>
+    </div>
+
+    <div class="shot__foot">
+      <p class="shot__hint">AUTO PLAY / 00:04</p>
+      <div class="shot__bar"><i></i></div>
+    </div>
+
+    <div class="gate" id="gate">
+      <span class="gate__line" aria-hidden="true"></span>
+      <p class="gate__jp">準備はいいですか</p>
+      <button class="gate__btn" id="enterBtn" type="button">
+        <span>ENTER</span><i aria-hidden="true"></i>
+      </button>
+      <p class="gate__hint">CLICK TO ENTER</p>
+    </div>
+
+    <button class="opening__skip" id="skip" type="button">
+      <span>SKIP</span>
+      <svg viewBox="0 0 20 12" aria-hidden="true"><path d="M2 2l8 4-8 4zM10 2l8 4-8 4z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ==========================================================
+     PAGE
+=========================================================== -->
+<div class="page" id="page">
+
+  <header class="mini-head" id="topbar">
+    <a class="mini-head__brand" href="#top" aria-label="回到顶部">
+      <span class="mini-head__mark">光</span>
+      <span class="mini-head__name">光景<small>SCENES IN THE LIGHT</small></span>
+    </a>
+    <div class="mini-head__meta">
+      <span class="mini-head__badge">GODOT 4</span>
+      <span class="mini-head__date">2026</span>
+    </div>
+  </header>
+
+  <button class="ring" id="menuOpen" type="button" aria-expanded="false" aria-controls="nav" aria-label="打开菜单">
+    <span class="ring__lines" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="ring__label">MENU</span>
+  </button>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ---------- HERO ---------- -->
+    <section class="hero" id="top">
+      <p class="hero__watermark" aria-hidden="true">SCENE</p>
+      <span class="hero__tri" aria-hidden="true"></span>
+      <span class="hero__dots" aria-hidden="true"></span>
+
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <p class="kicker">
+            <span class="dot"></span>
+            GAME PROJECT
+            <span class="rule"></span>
+            GODOT 4
+          </p>
+
+          <p class="hero__jp">ひかりのなかへ</p>
+
+          <h1 class="hero__title">光景<span class="hero__title-en">SCENES</span></h1>
+
+          <p class="hero__tagline">换一张背景，<span>就是另一个世界。</span></p>
+
+          <p class="hero__lead">
+            一个用 Godot 制作的小游戏。<br>
+            图片只是背景，故事由你决定。
+          </p>
+
+          <div class="hero__actions">
+            <button class="btn btn--solid" id="startTop" type="button" data-game>
+              <span>开始游戏</span><i aria-hidden="true"></i>
+            </button>
+            <button class="btn btn--line" type="button" data-replay>
+              <span>重播开屏</span><i aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <dl class="hero__meta">
+            <div><dt>引擎</dt><dd>Godot 4</dd></div>
+            <div><dt>平台</dt><dd>网页 / Web</dd></div>
+            <div><dt>状态</dt><dd>开发中</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero__game">
+          <div class="gamecard">
+            <div class="gamecard__bar"><span>GAME / 01</span><span>GODOT 4</span></div>
+            <div class="gamecard__cover">
+              <img id="gameCover" alt="" aria-hidden="true">
+              <span class="gamecard__chip">未命名游戏</span>
+              <button class="gamecard__start" id="startCard" type="button" data-game>
+                <span>START</span><i aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="gamecard__bar gamecard__bar--foot"><span>WEB BUILD</span><span>IN DEVELOPMENT</span></div>
+          </div>
+          <p class="hero__note">游戏导出放进 <b>game/</b>，这里就会变成实机画面</p>
+        </div>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>SCENES IN THE LIGHT</span><span>换一张背景，就是另一个世界</span><span>GODOT 4</span>
+          <span>SCENES IN THE LIGHT</span><span>换一张背景，就是另一个世界</span><span>GODOT 4</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- SOON ---------- -->
+    <section class="soon" id="soon">
+      <div class="wrap">
+        <div class="soon__frame reveal">
+          <p class="soon__jp">― NEXT SCENE ―</p>
+          <h2>更多内容，正在绘制</h2>
+          <p class="soon__note">角色、玩法、开发日志……先留白，等下一笔。</p>
+          <p class="soon__en">COMING SOON</p>
+          <span class="soon__no" aria-hidden="true">02</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p class="footer__logo">光景<small>SCENES IN THE LIGHT</small></p>
+      <nav class="footer__nav" aria-label="底部导航">
+        <button type="button" data-game>游戏</button>
+        <button type="button" data-replay>重播开屏</button>
+        <a href="#top">回到顶部</a>
+      </nav>
+      <p class="footer__copy">© 2026 光景 · Made with Godot 4</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ==========================================================
+     FULLSCREEN NAV
+=========================================================== -->
+<nav class="nav" id="nav" aria-hidden="true" aria-label="主菜单">
+  <div class="nav__inner">
+    <div class="nav__top">
+      <p class="nav__brand">光景<small>SCENES IN THE LIGHT</small></p>
+      <button class="nav__close" id="navClose" type="button">
+        <span>CLOSE</span><i aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <ul class="nav__list">
+      <li style="--i:0"><button type="button" data-game><span>01</span>游戏<em>GAME</em></button></li>
+      <li style="--i:1"><a href="#soon" data-nav-link><span>02</span>更多<em>MORE</em></a></li>
+      <li style="--i:2"><button type="button" data-replay><span>03</span>重播开屏<em>OPENING</em></button></li>
+    </ul>
+
+    <div class="nav__foot">
+      <p>GODOT 4 / WEB</p>
+      <p>2026</p>
+    </div>
+  </div>
+</nav>
+
+<!-- ==========================================================
+     GAME PLAYER
+=========================================================== -->
+<div class="player" id="player" role="dialog" aria-modal="true" aria-label="游戏画面" aria-hidden="true">
+  <div class="player__backdrop" data-close></div>
+  <div class="player__panel">
+    <div class="player__bar">
+      <span>GAME / 01 <em>GODOT 4</em></span>
+      <button class="player__close" id="playerClose" type="button">
+        <span>CLOSE</span><i aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="player__stage" id="playerStage">
+      <div class="player__missing" id="playerMissing" hidden>
+        <p class="missing__jp">まだ、ゲームが入っていません</p>
+        <p class="missing__title">游戏还没有放进来</p>
+        <ol>
+          <li>在 Godot 里打开项目，选择「项目 → 导出」</li>
+          <li>添加 Web 预设，导出到本文件夹的 <code>game/</code></li>
+          <li>确认 <code>game/index.html</code> 存在后刷新本页</li>
+        </ol>
+        <p class="missing__path">目标位置：<code>game/index.html</code></p>
+        <p class="missing__tip" id="playerTip" hidden>你现在是双击打开的（file://）。Godot 网页版需要通过根目录的「启动网站.bat」启动本地服务器。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<noscript>
+  <style>
+    .opening { display: none !important; }
+    .page { opacity: 1 !important; visibility: visible !important; }
+    body.is-locked { overflow: auto !important; }
+  </style>
+</noscript>
+
+<!-- 照片清单：由 印象派阳光下的鲸娘伙伴/更新照片清单.bat 生成 -->
+<script src="assets/photos.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>
